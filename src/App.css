@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.book-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.book-item {
+  width: 30%;
+  margin: 8px;
+}
+
+.favorite {
+  cursor: pointer;
+}
