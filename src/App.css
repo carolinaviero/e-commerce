@@ -51,3 +51,9 @@
 .favorite {
   cursor: pointer;
 }
+
+#total {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 32px;
+}
