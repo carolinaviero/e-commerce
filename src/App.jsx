@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
-import { BookItem } from './components/BookItem';
+import { Routes, Route } from "react-router-dom";
+import { Books } from './components/Books';
 import { Navbar } from './components/Navbar';
+import { Cart } from './components/Cart';
+import { Favorites } from './components/Favorites';
 import './App.css';
 
 function App() {
@@ -15,8 +18,18 @@ function App() {
     .then(data => setData(data.books))
   }
 
-  const handleAddToFavorites = (book) => {
-    setFavoriteBooks([...favoriteBooks, book])
+  const handleAddToFavorites = (book, isFav) => {
+    const isFavorite = favoriteBooks.find(favoriteBook => favoriteBook.isbn13 === book.isbn13)
+   
+    const removeFavorite = () => favoriteBooks.filter(favoriteBook => favoriteBook.isbn13 !== book.isbn13);
+
+    if (!isFavorite) {
+      setFavoriteBooks([...favoriteBooks, book])
+    }
+
+    if (isFav) {
+      removeFavorite(book)
+    }
   }
 
   const handleAddToCart = (bookInfo) => {
@@ -27,24 +40,24 @@ function App() {
     if (!isInCart) {
       isInCart = { ...bookInfo, quantity: 1 }
       newCart.push(isInCart)
+    } else if (isInCart) {
+      isInCart.quantity++;
     }
 
     setBooksInCart(newCart)
-    console.log('booksInCart', booksInCart)
   }
-  
+
   useEffect(fetchData, [])
 
-  
   return (
     <div className="App">
-      <Navbar total={price} />
+      <Navbar total={price.toFixed(2)} />
       <h1>Book Store</h1>
-      <div className="book-container">
-        {data.map(book => (
-          <BookItem bookInfo={book} key={book.isbn13} handleAddToFavorites={handleAddToFavorites} handleAddToCart={handleAddToCart} />
-        ))}
-      </div>
+      <Routes>
+        <Route path="/" element={<Books books={data} handleAddToFavorites={handleAddToFavorites} handleAddToCart={handleAddToCart} />} />
+        <Route path="cart" element={<Cart total={price.toFixed(2)} booksInCart={booksInCart} />} />
+        <Route path="favorites" element={<Favorites />} />
+      </Routes>
     </div>
   );
 }

@@ -52,8 +52,18 @@
   cursor: pointer;
 }
 
-#total {
+.total {
   display: flex;
   justify-content: flex-end;
   margin-right: 32px;
+}
+
+.routes {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 32px;
+}
+
+h2 {
+  padding: 0 4px;
 }
