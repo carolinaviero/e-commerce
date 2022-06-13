@@ -1,5 +1,12 @@
-export const Favorites = () => {
+import React from 'react';
+import { FavoriteBookItem } from "./FavoriteBookItem"
+
+export const Favorites = ({ favoriteBooks }) => {
     return (
-        <h1>This is our favorites component</h1>
+        <div className="book-container">
+            {favoriteBooks?.map(favoriteBook => (
+                <FavoriteBookItem favoriteBook={favoriteBook} key={favoriteBook.isbn13} />
+              ))}
+        </div>
     )
 }

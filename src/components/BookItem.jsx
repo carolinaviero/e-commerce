@@ -5,8 +5,8 @@ export const BookItem = ({ bookInfo, handleAddToFavorites, handleAddToCart }) =>
 
     const handleClick = () => {
         setIsFavorite(!isFavorite);
-        const isFav = !isFavorite;
-        handleAddToFavorites(bookInfo, isFav)
+        console.log(bookInfo)
+        handleAddToFavorites(bookInfo, isFavorite)
     }
 
     return (
